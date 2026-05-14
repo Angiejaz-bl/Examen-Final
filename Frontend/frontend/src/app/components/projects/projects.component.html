@@ -1,0 +1,23 @@
+<h2>Proyectos</h2>
+
+<form [formGroup]="form" (ngSubmit)="create()">
+  <input placeholder="Nombre del proyecto" formControlName="name">
+  <input placeholder="Descripción" formControlName="description">
+  <button type="submit">Crear</button>
+</form>
+
+<ul>
+  <li *ngFor="let p of projects; trackBy: trackById">
+    <span>
+      <strong>{{ p.name }}</strong><br>
+      {{ p.description }}
+    </span>
+
+    <button
+      type="button"
+      (click)="onDelete($event, p.id!)"
+    >
+      Eliminar
+    </button>
+  </li>
+</ul>

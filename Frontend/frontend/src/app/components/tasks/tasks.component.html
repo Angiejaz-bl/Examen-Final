@@ -1,0 +1,53 @@
+<h2>Tareas</h2>
+
+<form [formGroup]="form" (ngSubmit)="create()">
+
+  <input placeholder="Título" formControlName="title">
+  <input placeholder="Descripción" formControlName="description">
+
+  <select formControlName="project_id">
+    <option value="" disabled selected>Selecciona proyecto</option>
+    <option *ngFor="let p of projects" [value]="p.id">
+      {{ p.name }}
+    </option>
+  </select>
+
+  <select formControlName="status">
+    <option value="pending">Pendiente</option>
+    <option value="in_progress">En progreso</option>
+    <option value="completed">Completada</option>
+  </select>
+
+  <button type="submit">Crear</button>
+</form>
+
+<div class="filters">
+  <button type="button" class="filter-btn" (click)="filter('pending')">
+    Pendientes
+  </button>
+
+  <button type="button" class="filter-btn" (click)="filter('in_progress')">
+    En progreso
+  </button>
+
+  <button type="button" class="filter-btn" (click)="filter('completed')">
+    Completadas
+  </button>
+
+  <button type="button" class="filter-btn" (click)="loadTasks()">
+    Todas
+  </button>
+</div>
+
+<ul>
+  <li *ngFor="let t of tasks; trackBy: trackById">
+    <span>
+      <strong>{{ t.title }}</strong><br>
+      {{ t.status }}
+    </span>
+
+    <button type="button" (click)="changeStatus(t.id!, 'completed')">
+      Completar
+    </button>
+  </li>
+</ul>
